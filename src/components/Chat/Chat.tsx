@@ -29,20 +29,24 @@ export const Chat = () => {
   }
 
 
-  return <div className="flex flex-col items-center w-full">
+
+  return <div className="flex flex-col items-center w-full h-full px-6">
     <ChatList list={chatHistory} />
-    <input className="bg-neutral-900 w-full max-w-[80%] rounded-md p-2" onKeyDown={handleSubmit} />
+    <input className="bg-base-200 w-full max-w-[712px] rounded-md p-2 " onKeyDown={handleSubmit} />
   </div>
 }
 
 const ChatList = ({ list }: { list: Array<ChatMessage> }) => {
   const classes = {
-    container: cn("bg-neutral-900 flex flex-col items-center w-full max-w-[80%] rounded-md my-6 p-4"),
+    container: cn("flex justify-center w-full my-6 overflow-y-scroll"),
+    list: cn("max-w-[712px] w-full h-full rounded-md")
   }
 
   return (
-    <section className={classes.container}>
-      {list.map((item, index) => <ChatItem key={index} item={item} />)}
+    <section className={classes.container} style={{ height: `calc(100% - 150px)` }}>
+      <div className={classes.list}>
+        {list.map((item, index) => <ChatItem key={index} item={item} />)}
+      </div>
     </section>
   )
 }
@@ -56,7 +60,7 @@ const ChatItem = ({ item }: { item: ChatMessage }) => {
     }),
     item: cn("my-2", {
       "p-1": isBot,
-      "p-2 bg-neutral-800 rounded-md": !isBot,
+      "p-2 bg-base-300 rounded-md": !isBot,
     })
   }
 
