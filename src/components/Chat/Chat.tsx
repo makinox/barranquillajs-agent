@@ -9,9 +9,7 @@ type ChatMessage = {
 }
 
 const DEFAULT_CHAT = [
-  { owner: "bot", message: "Hola" },
-  { owner: "user", message: "Hola, como estas?" },
-  { owner: "bot", message: "Bien y tu?" },
+  { owner: "bot", message: "Hola, soy el asistente personal de BarranquillaJS, estoy acá para responderte preguntas sobre Javascript y la comunidad" },
 ]
 
 export const Chat = () => {
@@ -32,20 +30,20 @@ export const Chat = () => {
 
   return <div className="flex flex-col items-center w-full h-full px-6">
     <ChatList list={chatHistory} />
-    <input className="bg-base-200 w-full max-w-[712px] rounded-md p-2 " onKeyDown={handleSubmit} />
+    <input className="bg-base-200 w-full max-w-[712px] rounded-md p-2" onKeyDown={handleSubmit} />
   </div>
 }
 
 const ChatList = ({ list }: { list: Array<ChatMessage> }) => {
   const classes = {
     container: cn("flex justify-center w-full my-6 overflow-y-scroll"),
-    list: cn("max-w-[712px] w-full h-full rounded-md")
+    list: cn("max-w-[712px] w-full h-full rounded-md flex flex-col-reverse")
   }
 
   return (
     <section className={classes.container} style={{ height: `calc(100% - 150px)` }}>
       <div className={classes.list}>
-        {list.map((item, index) => <ChatItem key={index} item={item} />)}
+        {list.reverse().map((item, index) => <ChatItem key={index} item={item} />)}
       </div>
     </section>
   )
@@ -61,10 +59,14 @@ const ChatItem = ({ item }: { item: ChatMessage }) => {
     item: cn("my-2", {
       "p-1": isBot,
       "p-2 bg-base-300 rounded-md": !isBot,
-    })
+    }),
+    logo: cn("w-8 h-8 rounded-full bg-yellow-300 mt-4 mr-2")
   }
 
   return <div className={classes.itemContainer}>
-    <span className={classes.item}>{isBot && `${item.owner}:`} {item.message}</span>
+    <div className="flex items-start">
+      {isBot && <img className={classes.logo} src="/logo.svg" />}
+      <span className={classes.item}>{item.message}</span>
+    </div>
   </div>
 }
