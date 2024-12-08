@@ -24,7 +24,7 @@ export const Chat = () => {
     setChatHistory(prev => [...prev, { owner: "user", message: message }]);
     const response = await postAsk(message);
 
-    setChatHistory(prev => [...prev, { owner: "bot", message: response || "" }]);
+    if (response) setChatHistory(prev => [...prev, { owner: "bot", message: response }]);
     event.target.value = ""
   }
 
