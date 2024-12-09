@@ -48,7 +48,7 @@ export const Chat = () => {
 const ChatList = ({ list }: { list: Array<ChatMessage> }) => {
   const classes = {
     container: cn("flex justify-center w-full my-6 overflow-y-scroll"),
-    list: cn("max-w-[712px] w-full h-full rounded-md flex flex-col-reverse")
+    list: cn("max-w-[712px] w-full h-full rounded-md flex flex-col-reverse overflow-y-scroll")
   }
 
   const soretdlist = useMemo(() => [...list].reverse(), [list])
@@ -56,21 +56,27 @@ const ChatList = ({ list }: { list: Array<ChatMessage> }) => {
   return (
     <section className={classes.container} style={{ height: `calc(100% - 150px)` }}>
       <div className={classes.list}>
-        {soretdlist.map((item, index) => item.message !== "" ? <ChatItem key={index} item={item} /> : <ChatLoading />)}
+        {soretdlist.map((item, index) => item.message !== "" ? <ChatItem key={index} item={item} /> : <ChatLoading key={index} />)}
       </div>
     </section>
   )
 }
 
-const ChatLoading = () => (
-  <div className="flex items-start">
-    <img className={generalClasses.logo} src="/logo.svg" />
-    <div className="animate-pulse flex flex-col gap-2 mt-4">
-      <span className="bg-gray-500 rounded-md block h-2 w-96" />
-      <span className="bg-gray-500 rounded-md block h-2 w-72" />
+const ChatLoading = () => {
+  const classes = {
+    line: cn("bg-gray-500 rounded-md block h-2")
+  }
+
+  return (
+    <div className="flex items-start">
+      <img className={generalClasses.logo} src="/logo.svg" />
+      <div className="animate-pulse flex flex-col gap-2 mt-4">
+        <span className={cn(classes.line, "w-60 md:w-96")} />
+        <span className={cn(classes.line, "w-48 md:w-72")} />
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 const ChatItem = ({ item }: { item: ChatMessage }) => {
   const isBot = item.owner === "bot"

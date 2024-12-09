@@ -12,10 +12,17 @@ export const prepareLlm = async () => {
     maxRetries: 2,
   });
 
-  const loader = new CheerioWebBaseLoader('https://barranquillajs.org/events', { selector: 'p, span, h1, h2, h3, h4, h5, h6, a' })
-  const docs = await loader.load()
+  const urls = ["https://barranquillajs.org/", "https://barranquillajs.org/events"]
+
+  const allDocs = [];
+  for (const url of urls) {
+    const loader = new CheerioWebBaseLoader(url);
+    const docs = await loader.load();
+    allDocs.push(...docs);
+  }
+
   const textSplitter = new RecursiveCharacterTextSplitter({ chunkSize: 1000, chunkOverlap: 200 })
-  const splits = await textSplitter.splitDocuments(docs)
+  const splits = await textSplitter.splitDocuments(allDocs)
   const vectorstore = await MemoryVectorStore.fromDocuments(splits, new GoogleGenerativeAIEmbeddings())
   const retriever = vectorstore.asRetriever()
 
@@ -27,6 +34,7 @@ export const promptTemplate = ChatPromptTemplate.fromMessages([
     'system',
     'Usted es un organizador de BarranquillaJS y también tutor de JavaScript,' +
     'no puede hablar de otro tema que no sea dar información sobre el meetup de js o enseñar JavaScript.' +
+    'sé consiso cuando des las respuestas.' +
     'Responda a las preguntas de la conferencia con este contexto:\n\n{context}'
   ],
   ['human', '{input}']
