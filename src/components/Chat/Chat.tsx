@@ -39,7 +39,7 @@ export const Chat = () => {
 
 
 
-  return <div className="flex flex-col items-center w-full h-full px-6">
+  return <div className="flex flex-col items-center w-full px-6" style={{ height: `calc(100% - 70px)` }} >
     <ChatList list={chatHistory} />
     <input className="bg-base-200 w-full max-w-[712px] rounded-md p-2" onKeyDown={handleSubmit} />
   </div>

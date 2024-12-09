@@ -1,0 +1,30 @@
+---
+import { FaLinkedin, FaHome } from 'react-icons/fa';
+---
+
+<nav class="navbar bg-base-100 shadow-md">
+  <section class="flex items-center justify-between w-full max-w-[1020px] mx-auto">
+    <div class="flex-1 items-center flex">
+      <a href="/" class="btn btn-ghost btn-sm">
+        <img class="w-8 h-8 rounded-full bg-yellow-300" src="/logo.svg" />
+        <span class="normal-case text-base">
+          BarranquillaJs Agent
+        </span>
+      </a>
+    </div>
+    <div class="flex-none">
+      <ul class="menu menu-horizontal px-1 gap-1">
+        <li>
+          <a class="btn-sm" href="https://jesusbossa.dev" target="_blank" rel="noreferrer">
+            <FaHome size={20} />
+          </a>
+        </li>
+        <li>
+          <a class="btn-sm" href="https://www.linkedin.com/in/makinox" target="_blank" rel="noreferrer">
+            <FaLinkedin size={20} />
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+</nav>

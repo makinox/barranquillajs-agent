@@ -1,9 +1,11 @@
 ---
 import {Chat} from '../components/Chat/Chat.tsx';
+import Navbar from '../components/Navbar/Navbar.astro';
 import Layout from '../layouts/Layout.astro';
 
 ---
 
 <Layout>
+	<Navbar />
 	<Chat client:load />
 </Layout>
